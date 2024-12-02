@@ -4,6 +4,21 @@ import { notFound } from 'next/navigation';
 import { getMeal } from '@/lib/meals';
 import classes from './page.module.css';
 
+// Handling metadata for dynamic routes, have to use async
+export async function generateMetadata(props){
+  const params = await props.params;
+  const meal = getMeal(params.para);
+
+  if (!meal) {
+    notFound();
+  }
+
+  return{
+    title: meal.title,
+    description: meal.summary
+  }
+}
+
 export default async function MealDetailsPage(props) {
   const params = await props.params;
   const meal = getMeal(params.para);
