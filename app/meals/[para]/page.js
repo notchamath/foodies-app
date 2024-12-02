@@ -4,7 +4,8 @@ import { notFound } from 'next/navigation';
 import { getMeal } from '@/lib/meals';
 import classes from './page.module.css';
 
-export default function MealDetailsPage({ params }) {
+export default async function MealDetailsPage(props) {
+  const params = await props.params;
   const meal = getMeal(params.para);
 
   if (!meal) {
